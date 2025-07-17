@@ -5,6 +5,24 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="assets/css/main.css" />
+
+  <style>
+    html, body {
+      height: auto;
+      overflow-y: auto;
+    }
+
+    #searchContainer .gcse-search {
+      min-height: 600px;
+    }
+
+    iframe {
+      display: block;
+      width: 100%;
+      height: 800px;
+      border: none;
+    }
+  </style>
 </head>
 <body>
 
@@ -12,7 +30,7 @@
 <section id="search-tools" class="wrapper style2 special fade">
   <div class="container">
     <header>
-      <h2>Custom Search Portal</h2>
+      <h2>X-Ray Sourcing Tools</h2>
       <p>Select a tool to explore</p>
     </header>
 
@@ -50,9 +68,6 @@
     if (tool === 'gendersort') {
       const iframe = document.createElement("iframe");
       iframe.src = "https://gendersort.onrender.com";
-      iframe.style.width = "100%";
-      iframe.style.height = "800px";
-      iframe.style.border = "1px solid #ccc";
       container.appendChild(iframe);
     }
   }
