@@ -1,76 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Custom Search Portal</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 2rem;
-      max-width: 900px;
-      margin: auto;
-    }
-    .buttons {
-      margin-bottom: 20px;
-    }
-    .buttons button {
-      padding: 10px 20px;
-      margin-right: 10px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    .search-container {
-      margin-top: 30px;
-    }
-    iframe {
-      width: 100%;
-      height: 800px;
-      border: 1px solid #ccc;
-    }
-  </style>
+  <title>Multiverse + Custom Search Tools</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="assets/css/main.css" />
 </head>
 <body>
 
-  <h1>Custom Search Portal</h1>
-  <div class="buttons">
-    <button onclick="loadCSE('f1d198890af1d469b')">🌍 Country Specific Search</button>
-    <button onclick="loadCSE('6742cda52f2e045d2')">📊 Competitor Search</button>
-    <button onclick="loadExternal('gendersort')">🧠 GenderSort Tool</button>
+<!-- Custom Search and Tool Buttons -->
+<section id="search-tools" class="wrapper style1">
+  <div class="inner">
+    <header class="major">
+      <h2>Custom Search Portal</h2>
+      <p>Select a tool to begin</p>
+    </header>
+    <div class="buttons">
+      <button onclick="loadCSE('f1d198890af1d469b')">🌍 Country Specific Search</button>
+      <button onclick="loadCSE('6742cda52f2e045d2')">📊 Competitor Search</button>
+      <button onclick="loadExternal('gendersort')">🧠 GenderSort Tool</button>
+    </div>
+    <div class="search-container" id="searchContainer" style="margin-top: 30px;"></div>
   </div>
+</section>
 
-  <div class="search-container" id="searchContainer"></div>
+<script>
+function loadCSE(cxId) {
+  const container = document.getElementById("searchContainer");
+  container.innerHTML = "";
 
-  <script>
-    function loadCSE(cxId) {
-      const container = document.getElementById("searchContainer");
-      container.innerHTML = "";
+  const script = document.createElement("script");
+  script.type = "text/javascript";
+  script.async = true;
+  script.src = "https://cse.google.com/cse.js?cx=" + cxId;
 
-      const script = document.createElement("script");
-      script.type = "text/javascript";
-      script.async = true;
-      script.src = "https://cse.google.com/cse.js?cx=" + cxId;
+  const searchDiv = document.createElement("div");
+  searchDiv.className = "gcse-search";
 
-      const searchDiv = document.createElement("div");
-      searchDiv.className = "gcse-search";
+  container.appendChild(script);
+  container.appendChild(searchDiv);
+}
 
-      container.appendChild(script);
-      container.appendChild(searchDiv);
-    }
+function loadExternal(tool) {
+  const container = document.getElementById("searchContainer");
+  container.innerHTML = "";
 
-    function loadExternal(tool) {
-      const container = document.getElementById("searchContainer");
-      container.innerHTML = "";
+  if (tool === 'gendersort') {
+    const iframe = document.createElement("iframe");
+    iframe.src = "https://gendersort.onrender.com";
+    iframe.style.width = "100%";
+    iframe.style.height = "800px";
+    iframe.style.border = "1px solid #ccc";
+    container.appendChild(iframe);
+  }
+}
 
-      if (tool === 'gendersort') {
-        const iframe = document.createElement("iframe");
-        iframe.src = "https://gendersort.onrender.com";
-        container.appendChild(iframe);
-      }
-    }
+window.addEventListener('DOMContentLoaded', () => {
+  loadCSE("f1d198890af1d469b");
+});
+</script>
 
-    // Load Country Search by default
-    loadCSE("f1d198890af1d469b");
-  </script>
+<!-- Original Multiverse Template Content Below -->
+<!-- (You can add galleries or keep just your tools section) -->
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
 
 </body>
 </html>
