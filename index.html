@@ -19,10 +19,8 @@
       font-size: 16px;
       cursor: pointer;
     }
-    iframe {
-      width: 100%;
-      height: 700px;
-      border: 1px solid #ccc;
+    .search-container {
+      margin-top: 30px;
     }
   </style>
 </head>
@@ -30,24 +28,34 @@
 
   <h1>Custom Search Portal</h1>
   <div class="buttons">
-    <button onclick="loadCSE('country')">🌍 Country Specific Search</button>
-    <button onclick="loadCSE('competitor')">📊 Competitor Search</button>
+    <button onclick="loadCSE('f1d198890af1d469b')">🌍 Country Specific Search</button>
+    <button onclick="loadCSE('6742cda52f2e045d2')">📊 Competitor Search</button>
   </div>
 
-  <iframe id="searchFrame" src=""></iframe>
+  <div class="search-container" id="searchContainer"></div>
 
   <script>
-    const urls = {
-      country: "cse-country.html",
-      competitor: "cse-competitor.html"
-    };
+    function loadCSE(cxId) {
+      // Clear any existing engine
+      document.getElementById("searchContainer").innerHTML = "";
 
-    function loadCSE(type) {
-      document.getElementById('searchFrame').src = urls[type];
+      // Add new CSE script
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.async = true;
+      script.src = "https://cse.google.com/cse.js?cx=" + cxId;
+
+      // Add search container
+      const searchDiv = document.createElement("div");
+      searchDiv.className = "gcse-search";
+
+      // Append both to DOM
+      document.getElementById("searchContainer").appendChild(script);
+      document.getElementById("searchContainer").appendChild(searchDiv);
     }
 
-    // Load one by default
-    loadCSE('country');
+    // Load default engine
+    loadCSE("f1d198890af1d469b");
   </script>
 
 </body>
