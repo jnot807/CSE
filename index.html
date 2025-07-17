@@ -8,62 +8,61 @@
 </head>
 <body>
 
-<!-- Custom Search and Tool Buttons -->
-<section id="search-tools" class="wrapper style1">
-  <div class="inner">
-    <header class="major">
+<!-- Custom Search Tools Styled with Multiverse Theme -->
+<section id="search-tools" class="wrapper style2 special fade">
+  <div class="container">
+    <header>
       <h2>Custom Search Portal</h2>
-      <p>Select a tool to begin</p>
+      <p>Select a tool to explore</p>
     </header>
-    <div class="buttons">
-      <button onclick="loadCSE('f1d198890af1d469b')">🌍 Country Specific Search</button>
-      <button onclick="loadCSE('6742cda52f2e045d2')">📊 Competitor Search</button>
-      <button onclick="loadExternal('gendersort')">🧠 GenderSort Tool</button>
-    </div>
-    <div class="search-container" id="searchContainer" style="margin-top: 30px;"></div>
+
+    <ul class="actions stacked special">
+      <li><a href="#" class="button primary fit" onclick="loadCSE('f1d198890af1d469b')">🌍 Country Specific Search</a></li>
+      <li><a href="#" class="button fit" onclick="loadCSE('6742cda52f2e045d2')">📊 Competitor Search</a></li>
+      <li><a href="#" class="button fit" onclick="loadExternal('gendersort')">🧠 GenderSort Tool</a></li>
+    </ul>
+
+    <div id="searchContainer" style="margin-top: 2em;"></div>
   </div>
 </section>
 
 <script>
-function loadCSE(cxId) {
-  const container = document.getElementById("searchContainer");
-  container.innerHTML = "";
+  function loadCSE(cxId) {
+    const container = document.getElementById("searchContainer");
+    container.innerHTML = "";
 
-  const script = document.createElement("script");
-  script.type = "text/javascript";
-  script.async = true;
-  script.src = "https://cse.google.com/cse.js?cx=" + cxId;
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.async = true;
+    script.src = "https://cse.google.com/cse.js?cx=" + cxId;
 
-  const searchDiv = document.createElement("div");
-  searchDiv.className = "gcse-search";
+    const searchDiv = document.createElement("div");
+    searchDiv.className = "gcse-search";
 
-  container.appendChild(script);
-  container.appendChild(searchDiv);
-}
-
-function loadExternal(tool) {
-  const container = document.getElementById("searchContainer");
-  container.innerHTML = "";
-
-  if (tool === 'gendersort') {
-    const iframe = document.createElement("iframe");
-    iframe.src = "https://gendersort.onrender.com";
-    iframe.style.width = "100%";
-    iframe.style.height = "800px";
-    iframe.style.border = "1px solid #ccc";
-    container.appendChild(iframe);
+    container.appendChild(script);
+    container.appendChild(searchDiv);
   }
-}
 
-window.addEventListener('DOMContentLoaded', () => {
-  loadCSE("f1d198890af1d469b");
-});
+  function loadExternal(tool) {
+    const container = document.getElementById("searchContainer");
+    container.innerHTML = "";
+
+    if (tool === 'gendersort') {
+      const iframe = document.createElement("iframe");
+      iframe.src = "https://gendersort.onrender.com";
+      iframe.style.width = "100%";
+      iframe.style.height = "800px";
+      iframe.style.border = "1px solid #ccc";
+      container.appendChild(iframe);
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    loadCSE("f1d198890af1d469b");
+  });
 </script>
 
-<!-- Original Multiverse Template Content Below -->
-<!-- (You can add galleries or keep just your tools section) -->
-
-<!-- Scripts -->
+<!-- Multiverse Template Scripts -->
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/browser.min.js"></script>
 <script src="assets/js/breakpoints.min.js"></script>
