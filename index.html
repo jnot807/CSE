@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Search Portal</title>
+  <title>Custom Search Portal</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -22,6 +22,11 @@
     .search-container {
       margin-top: 30px;
     }
+    iframe {
+      width: 100%;
+      height: 800px;
+      border: 1px solid #ccc;
+    }
   </style>
 </head>
 <body>
@@ -30,31 +35,40 @@
   <div class="buttons">
     <button onclick="loadCSE('f1d198890af1d469b')">🌍 Country Specific Search</button>
     <button onclick="loadCSE('6742cda52f2e045d2')">📊 Competitor Search</button>
+    <button onclick="loadExternal('gendersort')">🧠 GenderSort Tool</button>
   </div>
 
   <div class="search-container" id="searchContainer"></div>
 
   <script>
     function loadCSE(cxId) {
-      // Clear any existing engine
-      document.getElementById("searchContainer").innerHTML = "";
+      const container = document.getElementById("searchContainer");
+      container.innerHTML = "";
 
-      // Add new CSE script
       const script = document.createElement("script");
       script.type = "text/javascript";
       script.async = true;
       script.src = "https://cse.google.com/cse.js?cx=" + cxId;
 
-      // Add search container
       const searchDiv = document.createElement("div");
       searchDiv.className = "gcse-search";
 
-      // Append both to DOM
-      document.getElementById("searchContainer").appendChild(script);
-      document.getElementById("searchContainer").appendChild(searchDiv);
+      container.appendChild(script);
+      container.appendChild(searchDiv);
     }
 
-    // Load default engine
+    function loadExternal(tool) {
+      const container = document.getElementById("searchContainer");
+      container.innerHTML = "";
+
+      if (tool === 'gendersort') {
+        const iframe = document.createElement("iframe");
+        iframe.src = "https://gendersort.onrender.com";
+        container.appendChild(iframe);
+      }
+    }
+
+    // Load Country Search by default
     loadCSE("f1d198890af1d469b");
   </script>
 
