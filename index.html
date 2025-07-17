@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Search Portal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+    .buttons {
+      margin-bottom: 20px;
+    }
+    .buttons button {
+      padding: 10px 20px;
+      margin-right: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    iframe {
+      width: 100%;
+      height: 700px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Custom Search Portal</h1>
+  <div class="buttons">
+    <button onclick="loadCSE('country')">🌍 Country Specific Search</button>
+    <button onclick="loadCSE('competitor')">📊 Competitor Search</button>
+  </div>
+
+  <iframe id="searchFrame" src=""></iframe>
+
+  <script>
+    const urls = {
+      country: "cse-country.html",
+      competitor: "cse-competitor.html"
+    };
+
+    function loadCSE(type) {
+      document.getElementById('searchFrame').src = urls[type];
+    }
+
+    // Load one by default
+    loadCSE('country');
+  </script>
+
+</body>
+</html>
