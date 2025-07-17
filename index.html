@@ -23,26 +23,35 @@
       border: none;
     }
 
+    /* Scraper Badge Styles */
     .scraper-badge {
       position: absolute;
-      top: 2rem;
-      right: 2rem;
-      text-align: right;
-      max-width: 250px;
+      top: 1.5rem;
+      right: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.15);
+      max-width: 280px;
     }
 
     .scraper-badge img {
       height: 40px;
-      vertical-align: middle;
-      margin-right: 10px;
     }
 
     .scraper-badge span {
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: #222;
-      display: inline-block;
-      vertical-align: middle;
+      font-size: 0.85rem;
+      color: #333;
+      line-height: 1.2;
+    }
+
+    .scraper-badge strong {
+      display: block;
+      margin-top: 4px;
+      color: #111;
     }
   </style>
 </head>
@@ -50,11 +59,11 @@
 
 <!-- Instant Data Scraper Badge -->
 <div class="scraper-badge">
-  <a href="https://chrome.google.com/webstore/detail/instant-data-scraper/nndknepjnldbdbepjfgmncbggmopgden" target="_blank" style="text-decoration: none;">
-    <img src="assets/images/Screenshot 2025-07-17 at 15.13.03.png" alt="Instant Data Scraper" />
+  <a href="https://chrome.google.com/webstore/detail/instant-data-scraper/nndknepjnldbdbepjfgmncbggmopgden" target="_blank" style="display: flex; align-items: center; text-decoration: none;">
+    <img src="assets/images/Screenshot 2025-07-17 at 15.13.03.png" alt="Instant Data Scraper">
     <span>
-      Want to scrape/save results?<br>
-      <strong>Download the Instant Data Scraper Chrome Extension!</strong>
+      Want to scrape/save results?
+      <strong>Download the Instant Data Scraper Extension</strong>
     </span>
   </a>
 </div>
