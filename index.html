@@ -38,22 +38,22 @@
       background-color: #1a1a1a;
       border-radius: 12px;
       padding: 2rem;
-      margin: 1rem auto; /* Reduced top margin */
+      margin: 1rem auto;
       box-shadow: 0 4px 20px rgba(255,255,255,0.05);
       max-width: 900px;
     }
 
     .button-group {
       display: flex;
-      flex-wrap: nowrap; /* Force single row */
+      flex-wrap: nowrap;
       justify-content: center;
       gap: 1rem;
-      overflow-x: auto; /* Allow scroll on small screens */
+      overflow-x: auto;
     }
     .button-group .button {
       position: relative;
       min-width: 250px;
-      cursor: pointer; /* Pointer cursor fix */
+      cursor: pointer;
     }
 
     a.button {
@@ -65,6 +65,7 @@
       transition: background .3s;
       text-decoration: none;
       display: inline-block;
+      position: relative;
     }
     a.button:hover { background: #333; }
 
@@ -84,7 +85,8 @@
       transition: opacity 0.3s;
       z-index: 10;
     }
-    .button-group .button:hover .tooltip-box {
+
+    .button:hover .tooltip-box {
       opacity: 1;
     }
 
@@ -95,63 +97,6 @@
       height: 800px;
       border: 1px solid #333;
       margin-top: 2rem;
-    }
-
-    .json-search-box {
-      background: #1a1a1a;
-      padding: 1.5rem;
-      border-radius: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .json-search-box input, .json-search-box button {
-      padding: .8rem;
-      border-radius: 8px;
-      border: none;
-      font-size: 1rem;
-      background: #2a2a2a;
-      color: white;
-    }
-    .json-search-box button {
-      background: #333;
-      cursor: pointer;
-    }
-    button:disabled {
-      opacity: .5;
-      cursor: not-allowed;
-    }
-
-    .country-tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: .5rem;
-    }
-    .country-tab {
-      background: #2a2a2a;
-      padding: .5rem .8rem;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .country-tab.active {
-      background: #4ac3ff;
-      color: black;
-    }
-
-    #jsonResults ul {
-      list-style: none;
-      padding-left: 0;
-    }
-    #jsonResults li {
-      margin-bottom: 1rem;
-    }
-    #jsonResults a {
-      color: #4ac3ff;
-      text-decoration: none;
-    }
-    #jsonResults a:hover {
-      text-decoration: underline;
     }
   </style>
 </head>
@@ -172,36 +117,65 @@
       </header>
 
       <div class="button-group">
-        <div class="button" onclick="loadCSE('f1d198890af1d469b')">
+        <a href="javascript:void(0);" class="button" onclick="loadCSE('f1d198890af1d469b')">
           🌍 Country Specific Search
           <div class="tooltip-box">Search for Linkedin Profiles from specific countries. Use intitle:[company name] + your query for focused results (e.g. intitle:Danone recruiter)</div>
-        </div>
+        </a>
 
-        <div class="button" onclick="loadCSE('6742cda52f2e045d2')">
+        <a href="javascript:void(0);" class="button" onclick="loadCSE('6742cda52f2e045d2')">
           📊 Competitor Search
           <div class="tooltip-box">Search global profiles using pre-loaded companies. Type a query and select a company (e.g. account manager + Nestlé)</div>
-        </div>
+        </a>
 
-        <div class="button" onclick="loadExternal('gendersort')">
+        <a href="javascript:void(0);" class="button" onclick="loadExternal('gendersort')">
           🧠 GenderSort Tool
           <div class="tooltip-box">Search profiles by gender. Requires API key + Search Engine ID. Save results to HTML table</div>
-        </div>
+        </a>
 
-        <div class="button" onclick="loadCombinedJSON()">
+        <a href="javascript:void(0);" class="button" onclick="loadCombinedJSON()">
           🌐 Country + Competitor Combined Search (API Key)
           <div class="tooltip-box">Powerful search by country and organisation. Uses API key with daily limits</div>
-        </div>
+        </a>
       </div>
 
       <div class="search-container" id="searchContainer"></div>
     </div>
   </section>
 
-  <!-- Your JS scripts for search logic would go here (unchanged) -->
+  <script>
+    function loadCSE(cxId) {
+      const c = document.getElementById("searchContainer");
+      c.innerHTML = '';
+      const s = document.createElement("script");
+      s.src = "https://cse.google.com/cse.js?cx=" + cxId;
+      s.async = true;
+      const d = document.createElement("div");
+      d.className = "gcse-search";
+      c.appendChild(s);
+      c.appendChild(d);
+    }
+
+    function loadExternal(tool) {
+      const c = document.getElementById("searchContainer");
+      c.innerHTML = '';
+      if (tool === 'gendersort') {
+        const iframe = document.createElement("iframe");
+        iframe.src = "https://gendersort.onrender.com";
+        c.appendChild(iframe);
+      }
+    }
+
+    function loadCombinedJSON() {
+      const c = document.getElementById("searchContainer");
+      c.innerHTML = '<iframe src="https://jnot807.github.io/Combined-Search/"></iframe>';
+    }
+  </script>
+
   <script src="assets/js/jquery.min.js"></script>
   <script src="assets/js/browser.min.js"></script>
   <script src="assets/js/breakpoints.min.js"></script>
   <script src="assets/js/util.js"></script>
   <script src="assets/js/main.js"></script>
+
 </body>
 </html>
