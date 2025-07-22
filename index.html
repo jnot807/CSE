@@ -97,7 +97,7 @@
       background: #333;
     }
 
-    /* NEW: Keep refinements only at the top */
+    /* Keep refinement labels visible at the top */
     .gsc-refinementsArea {
       display: flex !important;
       flex-wrap: wrap;
@@ -107,8 +107,15 @@
       padding: 0.5rem;
     }
 
-    .gsc-webResult .gsc-refinementsArea {
+    /* Hide refinement labels under search results */
+    .gsc-webResult .gsc-expansionArea .gsc-refinementsArea,
+    .gsc-webResult .gsc-refinementsArea,
+    .gsc-result .gsc-refinementsArea,
+    .gsc-webResult .gsc-table-result .gsc-refinementsArea {
       display: none !important;
+      height: 0 !important;
+      overflow: hidden !important;
+      visibility: hidden !important;
     }
   </style>
 </head>
@@ -185,4 +192,3 @@ window.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
-
