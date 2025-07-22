@@ -53,19 +53,18 @@
     .button {
       position: relative;
       min-width: 250px;
-      cursor: pointer;
-    }
-    .button a {
       background: #111;
-      color: #fff !important;
+      color: #fff;
       border: 1px solid #444;
       border-radius: 8px;
       padding: .8em 1.5em;
       transition: background .3s;
-      text-decoration: none;
-      display: inline-block;
+      cursor: pointer;
+      text-align: center;
     }
-    .button a:hover { background: #333; }
+    .button:hover {
+      background: #333;
+    }
 
     .tooltip-box {
       position: absolute;
@@ -83,7 +82,6 @@
       transition: opacity 0.3s;
       z-index: 10;
     }
-
     .button:hover .tooltip-box {
       opacity: 1;
     }
@@ -116,23 +114,23 @@
 
       <div class="button-group">
 
-        <div class="button">
-          <a href="javascript:void(0);" onclick="loadCSE('f1d198890af1d469b')">🌍 Country Specific Search</a>
+        <div class="button" onclick="loadCSE('f1d198890af1d469b')">
+          🌍 Country Specific Search
           <div class="tooltip-box">Search for Linkedin Profiles from specific countries. Use intitle:[company name] + your query for focused results (e.g. intitle:Danone recruiter)</div>
         </div>
 
-        <div class="button">
-          <a href="javascript:void(0);" onclick="loadCSE('6742cda52f2e045d2')">📊 Competitor Search</a>
+        <div class="button" onclick="loadCSE('6742cda52f2e045d2')">
+          📊 Competitor Search
           <div class="tooltip-box">Search global profiles using pre-loaded companies. Type a query and select a company (e.g. account manager + Nestlé)</div>
         </div>
 
-        <div class="button">
-          <a href="javascript:void(0);" onclick="loadExternal('gendersort')">🧠 GenderSort Tool</a>
+        <div class="button" onclick="loadExternal('gendersort')">
+          🧠 GenderSort Tool
           <div class="tooltip-box">Search profiles by gender. Requires API key + Search Engine ID. Save results to HTML table</div>
         </div>
 
-        <div class="button">
-          <a href="javascript:void(0);" onclick="loadCombinedJSON()">🌐 Country + Competitor Combined Search (API Key)</a>
+        <div class="button" onclick="loadCombinedJSON()">
+          🌐 Country + Competitor Combined Search (API Key)
           <div class="tooltip-box">Powerful search by country and organisation. Uses API key with daily limits</div>
         </div>
 
