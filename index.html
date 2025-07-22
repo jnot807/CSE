@@ -154,19 +154,24 @@ function loadCSE(cxId) {
 
   container.appendChild(script);
   container.appendChild(searchDiv);
+
+  // Ensure refinements are observed after CSE load
+  observeRefinements();
 }
 
-// Remove in-result refinement labels (even if dynamically injected)
-const observer = new MutationObserver(() => {
-  const refinementsInResults = document.querySelectorAll(
-    ".gsc-webResult .gsc-refinementsArea, .gsc-result .gsc-refinementsArea"
-  );
-  refinementsInResults.forEach(ref => ref.remove());
-});
-observer.observe(document.body, {
-  childList: true,
-  subtree: true
-});
+function observeRefinements() {
+  const observer = new MutationObserver(() => {
+    const refinementsInResults = document.querySelectorAll(
+      ".gsc-webResult .gsc-refinementsArea, .gsc-result .gsc-refinementsArea"
+    );
+    refinementsInResults.forEach(ref => ref.remove());
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+}
 
 function loadExternal(tool) {
   const container = document.getElementById("searchContainer");
@@ -179,6 +184,7 @@ function loadExternal(tool) {
   }
 }
 
+// Load default engine on first load
 window.addEventListener('DOMContentLoaded', () => {
   loadCSE("f1d198890af1d469b");
 });
