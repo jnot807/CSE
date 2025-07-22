@@ -12,133 +12,181 @@
       font-family: sans-serif;
     }
     h2, p { color: #fff; }
-    .scraper-badge { display: flex; justify-content: center; margin: 2rem auto; }
-    .scraper-badge a { display: flex; align-items: center; gap: 12px; padding: 12px 20px;
-      border-radius: 8px; background: #1f1f1f; box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-      text-decoration: none; color: #fff; max-width: 600px; }
+    .scraper-badge {
+      display: flex;
+      justify-content: center;
+      margin: 2rem auto;
+    }
+    .scraper-badge a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      border-radius: 8px;
+      background: #1f1f1f;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      text-decoration: none;
+      color: #fff;
+      max-width: 600px;
+    }
     .scraper-badge img { height: 40px; }
-    .scraper-badge span { font-size: .9rem; line-height: 1.4; }
-    .scraper-badge strong { display: block; font-weight: bold; }
-    .card { background-color: #1a1a1a; border-radius: 12px; padding: 2rem;
-      margin: 2rem auto; box-shadow: 0 4px 20px rgba(255,255,255,0.05); max-width: 900px; }
-    .button-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
-    .button-group .button { min-width: 250px; position: relative; }
-    .search-container .gcse-search { min-height: 600px; }
-    iframe { display: block; width: 100%; height: 800px; border: 1px solid #333; margin-top: 2rem; }
-    a.button { background: #111; color: #fff !important; border: 1px solid #444;
-      border-radius: 8px; padding: .8em 1.5em; transition: background .3s; text-align: center; }
-    a.button:hover { background: #333; }
+    .scraper-badge span {
+      font-size: .9rem;
+      line-height: 1.4;
+    }
+    .scraper-badge strong {
+      display: block;
+      font-weight: bold;
+    }
 
-    .tooltip-text {
+    .card {
+      background-color: #1a1a1a;
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 2rem auto;
+      box-shadow: 0 4px 20px rgba(255,255,255,0.05);
+      max-width: 900px;
+    }
+
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .button {
+      position: relative;
+      min-width: 250px;
+      background: #111;
+      color: #fff !important;
+      border: 1px solid #444;
+      border-radius: 8px;
+      padding: .8em 1.5em;
+      transition: background .3s;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .button:hover {
+      background: #333;
+    }
+
+    .button .tooltip {
       visibility: hidden;
       width: 280px;
-      background-color: #222;
+      background-color: #333;
       color: #fff;
       text-align: left;
-      padding: 10px;
       border-radius: 8px;
+      padding: 10px;
       position: absolute;
       z-index: 1;
-      bottom: 125%;
+      bottom: 130%;
       left: 50%;
       transform: translateX(-50%);
       opacity: 0;
       transition: opacity 0.3s;
-      font-size: 0.9rem;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+      pointer-events: none;
     }
-    .button:hover .tooltip-text {
+
+    .button:hover .tooltip {
       visibility: visible;
       opacity: 1;
     }
 
-    .json-search-box {
-      background: #1a1a1a;
-      padding: 1.5rem;
-      border-radius: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
+    .search-container .gcse-search {
+      min-height: 600px;
     }
-    .json-search-box input, .json-search-box button {
-      padding: .8rem;
-      border-radius: 8px;
-      border: none;
-      font-size: 1rem;
-      background: #2a2a2a;
-      color: white;
-    }
-    .json-search-box button { background: #333; cursor: pointer; }
-    button:disabled { opacity: .5; cursor: not-allowed; }
 
-    .country-tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: .5rem;
+    iframe {
+      display: block;
+      width: 100%;
+      height: 800px;
+      border: 1px solid #333;
+      margin-top: 2rem;
     }
-    .country-tab {
-      background: #2a2a2a;
-      padding: .5rem .8rem;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .country-tab.active {
-      background: #4ac3ff;
-      color: black;
-    }
-    #jsonResults ul { list-style: none; padding-left: 0; }
-    #jsonResults li { margin-bottom: 1rem; }
-    #jsonResults a { color: #4ac3ff; text-decoration: none; }
-    #jsonResults a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
 
-<div class="scraper-badge">
-  <a href="https://chromewebstore.google.com/detail/instant-data-scraper/ofaokhiedipichpaobibbnahnkdoiiah" target="_blank">
-    <img src="assets/images/Screenshot 2025-07-17 at 15.13.03.png" alt="Instant Data Scraper">
-    <span>
-      Want to scrape/save results?<br><strong>Download the Instant Data Scraper Extension</strong>
-    </span>
-  </a>
-</div>
-
-<section id="search-tools" class="wrapper style1">
-  <div class="card">
-    <header class="major" style="text-align:center;">
-      <h2>Custom Search Portal</h2>
-      <p>Select a tool to begin</p>
-    </header>
-
-    <div class="button-group">
-      <a href="#" class="button primary" onclick="loadCSE('f1d198890af1d469b')">
-        🌍 Country Specific Search
-        <span class="tooltip-text">Search for Linkedin Profiles from specific countries. If you want to look for profiles from specific companies, use intitle:[company name] + your query for specific results (for example intitle:Danone recruiter will fetch you recruiters working at Danone).</span>
-      </a>
-      <a href="#" class="button" onclick="loadCSE('6742cda52f2e045d2')">
-        📊 Competitor Search
-        <span class="tooltip-text">Search global profiles based on a set of pre-loaded companies. Simply enter the query and choose which company (e.g type account manager and choose from the list).</span>
-      </a>
-      <a href="#" class="button" onclick="loadExternal('gendersort')">
-        🧠 GenderSort Tool
-        <span class="tooltip-text">Search profiles based on Gender. This requires an API key and search engine ID. you can save results to a HTML table.</span>
-      </a>
-      <a href="#" class="button" onclick="loadCombinedJSON()">
-        🌐 Country + Competitor Combined Search (API Key)
-        <span class="tooltip-text">Powerful search for looking by specific country and organisation of the profile. Uses an API key with daily limits.</span>
-      </a>
-    </div>
-
-    <div class="search-container" id="searchContainer"></div>
+  <!-- Instant Data Scraper Badge -->
+  <div class="scraper-badge">
+    <a href="https://chromewebstore.google.com/detail/instant-data-scraper/ofaokhiedipichpaobibbnahnkdoiiah" target="_blank">
+      <img src="assets/images/Screenshot 2025-07-17 at 15.13.03.png" alt="Instant Data Scraper">
+      <span>
+        Want to scrape/save results?<br><strong>Download the Instant Data Scraper Extension</strong>
+      </span>
+    </a>
   </div>
-</section>
 
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/browser.min.js"></script>
-<script src="assets/js/breakpoints.min.js"></script>
-<script src="assets/js/util.js"></script>
-<script src="assets/js/main.js"></script>
+  <section id="search-tools" class="wrapper style1">
+    <div class="card">
+      <header class="major" style="text-align:center;">
+        <h2>Custom Search Portal</h2>
+        <p>Select a tool to begin</p>
+      </header>
+
+      <div class="button-group">
+        <a href="#" class="button primary" onclick="loadCSE('f1d198890af1d469b')">
+          🌍 Country Specific Search
+          <span class="tooltip">Search for Linkedin Profiles from specific countries. If you want to look for profiles from specific companies, use intitle:[company name] + your query for specific results (for example intitle:Danone recruiter will fetch you recruiters working at Danone).</span>
+        </a>
+        <a href="#" class="button" onclick="loadCSE('6742cda52f2e045d2')">
+          📊 Competitor Search
+          <span class="tooltip">Search global profiles based on a set of pre-loaded companies. Simply enter the query and choose which company (e.g type account manager and choose from the list).</span>
+        </a>
+        <a href="#" class="button" onclick="loadExternal('gendersort')">
+          🧠 GenderSort Tool
+          <span class="tooltip">Search profiles based on Gender. This requires an API key and search engine ID. you can save results to a HTML table.</span>
+        </a>
+        <a href="#" class="button" onclick="loadCombinedJSON()">
+          🌐 Country + Competitor Combined Search (API Key)
+          <span class="tooltip">Powerful search for looking by specific country and organisation of the profile. Uses an API key with daily limits.</span>
+        </a>
+      </div>
+
+      <div class="search-container" id="searchContainer"></div>
+    </div>
+  </section>
+
+  <script>
+    function loadCSE(cxId) {
+      const c = document.getElementById("searchContainer");
+      c.innerHTML = '';
+      const s = document.createElement("script");
+      s.src = "https://cse.google.com/cse.js?cx=" + cxId;
+      s.async = true;
+      const d = document.createElement("div");
+      d.className = "gcse-search";
+      c.appendChild(s);
+      c.appendChild(d);
+    }
+
+    function loadExternal(tool) {
+      const c = document.getElementById("searchContainer");
+      c.innerHTML = '';
+      if (tool === 'gendersort') {
+        const iframe = document.createElement("iframe");
+        iframe.src = "https://gendersort.onrender.com";
+        c.appendChild(iframe);
+      }
+    }
+
+    function loadCombinedJSON() {
+      const c = document.getElementById("searchContainer");
+      c.innerHTML = `
+        <div style="padding: 1rem; background: #1a1a1a; color: #fff;">
+          <p>This is a placeholder for the Combined JSON-powered search tool.</p>
+        </div>`;
+    }
+  </script>
+
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
 
 </body>
 </html>
