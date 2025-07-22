@@ -41,7 +41,6 @@
       margin: 1rem auto;
       box-shadow: 0 4px 20px rgba(255,255,255,0.05);
       max-width: 900px;
-      overflow: visible; /* <-- Ensure tooltips are visible */
     }
 
     .button-group {
@@ -50,9 +49,7 @@
       justify-content: center;
       gap: 1rem;
       overflow-x: auto;
-      overflow-y: visible; /* <-- Ensure vertical overflow doesn't clip */
     }
-
     .button {
       position: relative;
       min-width: 250px;
@@ -83,7 +80,7 @@
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s;
-      z-index: 9999; /* <-- High z-index to sit above all else */
+      z-index: 10;
     }
     .button:hover .tooltip-box {
       opacity: 1;
@@ -116,27 +113,33 @@
       </header>
 
       <div class="button-group">
-
         <div class="button" onclick="loadCSE('f1d198890af1d469b')">
           🌍 Country Specific Search
-          <div class="tooltip-box">Search for LinkedIn Profiles from specific countries. Use intitle:[company name] + your query for focused results (e.g. intitle:Danone recruiter)</div>
+          <div class="tooltip-box">
+            Search for Linkedin Profiles from specific countries. Use intitle:[company name] + your query for focused results (e.g. intitle:Danone recruiter)
+          </div>
         </div>
 
         <div class="button" onclick="loadCSE('6742cda52f2e045d2')">
           📊 Competitor Search
-          <div class="tooltip-box">Search global profiles using pre-loaded companies. Type a query and select a company (e.g. account manager + Nestlé)</div>
+          <div class="tooltip-box">
+            Search global profiles using pre-loaded companies. Type a query and select a company (e.g. account manager + Nestlé)
+          </div>
         </div>
 
         <div class="button" onclick="loadExternal('gendersort')">
           🧠 GenderSort Tool
-          <div class="tooltip-box">Search profiles by gender. Requires API key + Search Engine ID. Save results to HTML table</div>
+          <div class="tooltip-box">
+            Search profiles by gender. Requires API key + Search Engine ID. Save results to HTML table
+          </div>
         </div>
 
         <div class="button" onclick="loadCombinedJSON()">
           🌐 Country + Competitor Combined Search (API Key)
-          <div class="tooltip-box">Powerful search by country and organisation. Uses API key with daily limits</div>
+          <div class="tooltip-box">
+            Powerful search by country and organisation. Uses API key with daily limits
+          </div>
         </div>
-
       </div>
 
       <div class="search-container" id="searchContainer"></div>
