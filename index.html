@@ -8,10 +8,9 @@
 
   <style>
     html, body {
-      height: auto;
-      overflow-y: auto;
       background-color: #0f0f0f;
       color: #fff;
+      font-family: sans-serif;
     }
 
     h2, p {
@@ -72,16 +71,16 @@
       min-width: 250px;
     }
 
+    .search-container .gcse-search {
+      min-height: 600px;
+    }
+
     iframe {
       display: block;
       width: 100%;
       height: 800px;
       border: 1px solid #333;
       margin-top: 2rem;
-    }
-
-    .search-container .gcse-search {
-      min-height: 600px;
     }
 
     a.button {
@@ -97,20 +96,63 @@
       background: #333;
     }
 
-    /* Keep refinement labels visible at the top */
-    .gsc-refinementsArea {
-      display: flex !important;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin: 1rem auto;
-      max-width: 800px;
-      padding: 0.5rem;
+    .json-search-box {
+      display: flex;
+      gap: 10px;
+      margin-top: 1.5rem;
+    }
+
+    .json-search-box input {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      background: #222;
+      border: 1px solid #555;
+      color: white;
+      border-radius: 6px;
+    }
+
+    .json-search-box button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #4ea9ff;
+      color: #111;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .json-search-box button:hover {
+      background: #69bfff;
+    }
+
+    .results {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .result-item {
+      background: #1a1a1a;
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid #333;
+    }
+
+    .result-item a {
+      color: #4ea9ff;
+      font-size: 18px;
+      text-decoration: none;
+    }
+
+    .result-item p {
+      margin-top: 0.5rem;
     }
   </style>
 </head>
 <body>
 
-<!-- Instant Data Scraper Badge -->
 <div class="scraper-badge">
   <a href="https://chromewebstore.google.com/detail/instant-data-scraper/ofaokhiedipichpaobibbnahnkdoiiah" target="_blank">
     <img src="assets/images/Screenshot 2025-07-17 at 15.13.03.png" alt="Instant Data Scraper">
@@ -121,7 +163,6 @@
   </a>
 </div>
 
-<!-- Tool Buttons and Search Container -->
 <section id="search-tools" class="wrapper style1">
   <div class="card">
     <header class="major" style="text-align: center;">
@@ -131,7 +172,7 @@
 
     <div class="button-group">
       <a href="#" class="button primary" onclick="loadCSE('f1d198890af1d469b')">🌍 Country Specific Search</a>
-      <a href="#" class="button" onclick="loadCSE('6742cda52f2e045d2')">📊 Competitor Search</a>
+      <a href="#" class="button" onclick="loadCompetitorJSON()">📊 Competitor Search</a>
       <a href="#" class="button" onclick="loadExternal('gendersort')">🧠 GenderSort Tool</a>
     </div>
 
@@ -154,23 +195,6 @@ function loadCSE(cxId) {
 
   container.appendChild(script);
   container.appendChild(searchDiv);
-
-  // Ensure refinements are observed after CSE load
-  observeRefinements();
-}
-
-function observeRefinements() {
-  const observer = new MutationObserver(() => {
-    const refinementsInResults = document.querySelectorAll(
-      ".gsc-webResult .gsc-refinementsArea, .gsc-result .gsc-refinementsArea"
-    );
-    refinementsInResults.forEach(ref => ref.remove());
-  });
-
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true
-  });
 }
 
 function loadExternal(tool) {
@@ -184,10 +208,55 @@ function loadExternal(tool) {
   }
 }
 
-// Load default engine on first load
-window.addEventListener('DOMContentLoaded', () => {
-  loadCSE("f1d198890af1d469b");
-});
+// ✅ New: Load JSON API search
+function loadCompetitorJSON() {
+  const container = document.getElementById("searchContainer");
+  container.innerHTML = `
+    <div class="json-search-box">
+      <input type="text" id="query" placeholder="Search for a company, recruiter, etc..." />
+      <button onclick="runSearch()">Search</button>
+    </div>
+    <div class="results" id="results"></div>
+  `;
+}
+
+async function runSearch() {
+  const API_KEY = 'AIzaSyDEEQi0TYf-2ULYA0G2Q6x1JHWH4NUrok8';
+  const CX = '6742cda52f2e045d2';
+
+  const query = document.getElementById('query').value.trim();
+  const resultsDiv = document.getElementById('results');
+  resultsDiv.innerHTML = '🔍 Searching...';
+
+  if (!query) {
+    resultsDiv.innerHTML = '<p>Please enter a search term.</p>';
+    return;
+  }
+
+  try {
+    const response = await fetch(`https://www.googleapis.com/customsearch/v1?key=${API_KEY}&cx=${CX}&q=${encodeURIComponent(query)}`);
+    const data = await response.json();
+
+    if (!data.items || data.items.length === 0) {
+      resultsDiv.innerHTML = 'No results found.';
+      return;
+    }
+
+    resultsDiv.innerHTML = '';
+    data.items.forEach(item => {
+      const resultEl = document.createElement('div');
+      resultEl.className = 'result-item';
+      resultEl.innerHTML = `
+        <a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.title}</a>
+        <p>${item.snippet}</p>
+      `;
+      resultsDiv.appendChild(resultEl);
+    });
+  } catch (error) {
+    resultsDiv.innerHTML = '<p style="color: red;">Error fetching results.</p>';
+    console.error(error);
+  }
+}
 </script>
 
 <!-- Multiverse Scripts -->
