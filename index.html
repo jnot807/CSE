@@ -22,12 +22,35 @@
     .card { background-color: #1a1a1a; border-radius: 12px; padding: 2rem;
       margin: 2rem auto; box-shadow: 0 4px 20px rgba(255,255,255,0.05); max-width: 900px; }
     .button-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
-    .button-group .button { min-width: 250px; }
+    .button-group .button { min-width: 250px; position: relative; }
     .search-container .gcse-search { min-height: 600px; }
     iframe { display: block; width: 100%; height: 800px; border: 1px solid #333; margin-top: 2rem; }
     a.button { background: #111; color: #fff !important; border: 1px solid #444;
-      border-radius: 8px; padding: .8em 1.5em; transition: background .3s; }
+      border-radius: 8px; padding: .8em 1.5em; transition: background .3s; text-align: center; }
     a.button:hover { background: #333; }
+
+    .tooltip-text {
+      visibility: hidden;
+      width: 280px;
+      background-color: #222;
+      color: #fff;
+      text-align: left;
+      padding: 10px;
+      border-radius: 8px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 0.9rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+    .button:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
 
     .json-search-box {
       background: #1a1a1a;
@@ -72,174 +95,44 @@
 </head>
 <body>
 
-  <div class="scraper-badge">
-    <a href="https://chromewebstore.google.com/detail/instant-data-scraper/ofaokhiedipichpaobibbnahnkdoiiah" target="_blank">
-      <img src="assets/images/Screenshot 2025-07-17 at 15.13.03.png" alt="Instant Data Scraper">
-      <span>
-        Want to scrape/save results?<br><strong>Download the Instant Data Scraper Extension</strong>
-      </span>
-    </a>
-  </div>
+<div class="scraper-badge">
+  <a href="https://chromewebstore.google.com/detail/instant-data-scraper/ofaokhiedipichpaobibbnahnkdoiiah" target="_blank">
+    <img src="assets/images/Screenshot 2025-07-17 at 15.13.03.png" alt="Instant Data Scraper">
+    <span>
+      Want to scrape/save results?<br><strong>Download the Instant Data Scraper Extension</strong>
+    </span>
+  </a>
+</div>
 
-  <section id="search-tools" class="wrapper style1">
-    <div class="card">
-      <header class="major" style="text-align:center;">
-        <h2>Custom Search Portal</h2>
-        <p>Select a tool to begin</p>
-      </header>
+<section id="search-tools" class="wrapper style1">
+  <div class="card">
+    <header class="major" style="text-align:center;">
+      <h2>Custom Search Portal</h2>
+      <p>Select a tool to begin</p>
+    </header>
 
-      <div class="button-group">
-        <a href="#" class="button primary" onclick="loadCSE('f1d198890af1d469b')">🌍 Country Specific Search</a>
-        <a href="#" class="button" onclick="loadCSE('6742cda52f2e045d2')">📊 Competitor Search</a>
-        <a href="#" class="button" onclick="loadExternal('gendersort')">🧠 GenderSort Tool</a>
-        <a href="#" class="button" onclick="loadCombinedJSON()">🌐 Country + Competitor Combined Search (API Key)</a>
-      </div>
-
-      <div class="search-container" id="searchContainer"></div>
+    <div class="button-group">
+      <a href="#" class="button primary" onclick="loadCSE('f1d198890af1d469b')">
+        🌍 Country Specific Search
+        <span class="tooltip-text">Search for Linkedin Profiles from specific countries. If you want to look for profiles from specific companies, use intitle:[company name] + your query for specific results (for example intitle:Danone recruiter will fetch you recruiters working at Danone).</span>
+      </a>
+      <a href="#" class="button" onclick="loadCSE('6742cda52f2e045d2')">
+        📊 Competitor Search
+        <span class="tooltip-text">Search global profiles based on a set of pre-loaded companies. Simply enter the query and choose which company (e.g type account manager and choose from the list).</span>
+      </a>
+      <a href="#" class="button" onclick="loadExternal('gendersort')">
+        🧠 GenderSort Tool
+        <span class="tooltip-text">Search profiles based on Gender. This requires an API key and search engine ID. you can save results to a HTML table.</span>
+      </a>
+      <a href="#" class="button" onclick="loadCombinedJSON()">
+        🌐 Country + Competitor Combined Search (API Key)
+        <span class="tooltip-text">Powerful search for looking by specific country and organisation of the profile. Uses an API key with daily limits.</span>
+      </a>
     </div>
-  </section>
 
-<script>
-  function loadCSE(cxId) {
-    const c = document.getElementById("searchContainer");
-    c.innerHTML = '';
-    const s = document.createElement("script");
-    s.src = "https://cse.google.com/cse.js?cx=" + cxId;
-    s.async = true;
-    const d = document.createElement("div");
-    d.className = "gcse-search";
-    c.appendChild(s);
-    c.appendChild(d);
-  }
-
-  function loadExternal(tool) {
-    const c = document.getElementById("searchContainer");
-    c.innerHTML = '';
-    if (tool === 'gendersort') {
-      const iframe = document.createElement("iframe");
-      iframe.src = "https://gendersort.onrender.com";
-      c.appendChild(iframe);
-    }
-  }
-
-  function loadCombinedJSON() {
-    const c = document.getElementById("searchContainer");
-    c.innerHTML = `
-      <div class="json-search-box">
-        <input type="text" id="queryInput" placeholder="Enter keywords (e.g. data engineer)" />
-        <input type="text" id="company" placeholder="Enter company name (e.g. Nestlé)" />
-        <div class="country-tabs" id="countryTabs"></div>
-        <button onclick="runCompetitorSearch()">Search</button>
-        <button id="saveBtn" disabled onclick="saveResults()">💾 Save Results</button>
-      </div>
-      <div id="jsonResults"><ul></ul></div>`;
-    initCombinedSearch();
-  }
-
-  function initCombinedSearch() {
-    const API_KEY = 'AIzaSyDEEQi0TYf-2ULYA0G2Q6x1JHWH4NUrok8';
-    const CX = '729f737642d434e00';
-    let selectedSite = '', nextIndex = 1, fetching = false, finished = false, lastResults = [];
-
-    const countries = {
-      "Argentina": "ar.linkedin.com/in", "Australia": "au.linkedin.com/in", "Austria": "at.linkedin.com/in",
-      "Belgium": "be.linkedin.com/in", "Brazil": "br.linkedin.com/in", "Canada": "ca.linkedin.com/in",
-      "France": "fr.linkedin.com/in", "Germany": "de.linkedin.com/in", "India": "in.linkedin.com/in",
-      "Ireland": "ie.linkedin.com/in", "Italy": "it.linkedin.com/in", "Netherlands": "nl.linkedin.com/in",
-      "Singapore": "sg.linkedin.com/in", "South Africa": "za.linkedin.com/in", "Spain": "es.linkedin.com/in",
-      "Sweden": "se.linkedin.com/in", "Switzerland": "ch.linkedin.com/in", "UK": "uk.linkedin.com/in",
-      "USA": "us.linkedin.com/in", "Global": "linkedin.com/in"
-    };
-
-    const tabs = document.getElementById("countryTabs");
-    Object.entries(countries).forEach(([n, u]) => {
-      const tab = document.createElement('div');
-      tab.className = 'country-tab';
-      tab.textContent = n;
-      tab.onclick = () => {
-        tabs.querySelectorAll('.country-tab').forEach(x => x.classList.remove('active'));
-        tab.classList.add('active');
-        selectedSite = u;
-      };
-      tabs.appendChild(tab);
-    });
-
-    window.addEventListener("scroll", async () => {
-      if (finished || fetching) return;
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
-        await fetchMore();
-      }
-    });
-
-    window.runCompetitorSearch = async () => {
-      document.getElementById("jsonResults").innerHTML = '<ul></ul>';
-      document.getElementById("saveBtn").disabled = true;
-      lastResults = [];
-      nextIndex = 1;
-      finished = false;
-      await fetchMore();
-    };
-
-    async function fetchMore() {
-      fetching = true;
-      const q1 = document.getElementById('queryInput').value.trim();
-      const comp = document.getElementById('company').value.trim();
-      let q = '';
-      if (selectedSite) q += `site:${selectedSite} `;
-      if (comp) q += `intitle:"${comp}" `;
-      if (q1) q += q1;
-
-      const ul = document.querySelector('#jsonResults ul');
-
-      if (!q) {
-        ul.innerHTML = '<li style="color:orange;">⚠️ Please enter a keyword, company, or select a country.</li>';
-        fetching = false;
-        return;
-      }
-
-      try {
-        const res = await fetch(`https://www.googleapis.com/customsearch/v1?key=${API_KEY}&cx=${CX}&q=${encodeURIComponent(q)}&start=${nextIndex}`);
-        const d = await res.json();
-        if (d.items) {
-          document.getElementById("saveBtn").disabled = false;
-          d.items.forEach(it => {
-            const li = document.createElement('li');
-            li.innerHTML = `<a href="${it.link}" target="_blank">${it.title}</a><br>${it.snippet}`;
-            ul.appendChild(li);
-            lastResults.push({ title: it.title, link: it.link, snippet: it.snippet });
-          });
-          nextIndex += 10;
-          if (!d.queries?.nextPage || nextIndex > 100) finished = true;
-        } else {
-          if (nextIndex === 1) ul.innerHTML = '<li>No results found.</li>';
-          finished = true;
-        }
-      } catch (e) {
-        console.error(e);
-        finished = true;
-      }
-      fetching = false;
-    }
-
-    window.saveResults = () => {
-      if (!lastResults.length) return;
-      let html = '<html><head><meta charset="utf-8"><title>Results</title></head><body>';
-      html += '<h2>Search Results</h2><table border="1" cellpadding="8"><tr><th>Title</th><th>Link</th><th>Snippet</th></tr>';
-      lastResults.forEach(it => {
-        html += `<tr><td>${it.title}</td><td><a href="${it.link}">${it.link}</a></td><td>${it.snippet}</td></tr>`;
-      });
-      html += '</table></body></html>';
-      const blob = new Blob([html], { type: 'text/html' });
-      const u = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = u;
-      a.download = 'search_results.html';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    };
-  }
-</script>
+    <div class="search-container" id="searchContainer"></div>
+  </div>
+</section>
 
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/browser.min.js"></script>
