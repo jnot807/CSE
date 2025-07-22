@@ -11,6 +11,7 @@
       color: #fff;
       font-family: sans-serif;
     }
+
     h2, p { color: #fff; }
 
     .scraper-badge {
@@ -18,6 +19,7 @@
       justify-content: center;
       margin: 2rem auto;
     }
+
     .scraper-badge a {
       display: flex;
       align-items: center;
@@ -30,6 +32,7 @@
       color: #fff;
       max-width: 600px;
     }
+
     .scraper-badge img { height: 40px; }
     .scraper-badge span { font-size: .9rem; line-height: 1.4; }
     .scraper-badge strong { display: block; font-weight: bold; }
@@ -49,20 +52,28 @@
       justify-content: center;
       gap: 1rem;
       overflow-x: auto;
-    }
-    .button {
       position: relative;
-      min-width: 250px;
+    }
+
+    .button-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    .button-wrapper a {
       background: #111;
       color: #fff;
       border: 1px solid #444;
       border-radius: 8px;
       padding: .8em 1.5em;
-      transition: background .3s;
-      cursor: pointer;
       text-align: center;
+      min-width: 250px;
+      display: inline-block;
+      text-decoration: none;
+      transition: background 0.3s;
     }
-    .button:hover {
+
+    .button-wrapper a:hover {
       background: #333;
     }
 
@@ -82,7 +93,8 @@
       transition: opacity 0.3s;
       z-index: 10;
     }
-    .button:hover .tooltip-box {
+
+    .button-wrapper:hover .tooltip-box {
       opacity: 1;
     }
 
@@ -113,33 +125,27 @@
       </header>
 
       <div class="button-group">
-        <div class="button" onclick="loadCSE('f1d198890af1d469b')">
-          🌍 Country Specific Search
-          <div class="tooltip-box">
-            Search for Linkedin Profiles from specific countries. Use intitle:[company name] + your query for focused results (e.g. intitle:Danone recruiter)
-          </div>
+
+        <div class="button-wrapper">
+          <a href="javascript:void(0);" onclick="loadCSE('f1d198890af1d469b')">🌍 Country Specific Search</a>
+          <div class="tooltip-box">Search for Linkedin Profiles from specific countries. Use intitle:[company name] + your query for focused results (e.g. intitle:Danone recruiter)</div>
         </div>
 
-        <div class="button" onclick="loadCSE('6742cda52f2e045d2')">
-          📊 Competitor Search
-          <div class="tooltip-box">
-            Search global profiles using pre-loaded companies. Type a query and select a company (e.g. account manager + Nestlé)
-          </div>
+        <div class="button-wrapper">
+          <a href="javascript:void(0);" onclick="loadCSE('6742cda52f2e045d2')">📊 Competitor Search</a>
+          <div class="tooltip-box">Search global profiles using pre-loaded companies. Type a query and select a company (e.g. account manager + Nestlé)</div>
         </div>
 
-        <div class="button" onclick="loadExternal('gendersort')">
-          🧠 GenderSort Tool
-          <div class="tooltip-box">
-            Search profiles by gender. Requires API key + Search Engine ID. Save results to HTML table
-          </div>
+        <div class="button-wrapper">
+          <a href="javascript:void(0);" onclick="loadExternal('gendersort')">🧠 GenderSort Tool</a>
+          <div class="tooltip-box">Search profiles by gender. Requires API key + Search Engine ID. Save results to HTML table</div>
         </div>
 
-        <div class="button" onclick="loadCombinedJSON()">
-          🌐 Country + Competitor Combined Search (API Key)
-          <div class="tooltip-box">
-            Powerful search by country and organisation. Uses API key with daily limits
-          </div>
+        <div class="button-wrapper">
+          <a href="javascript:void(0);" onclick="loadCombinedJSON()">🌐 Country + Competitor Combined Search (API Key)</a>
+          <div class="tooltip-box">Powerful search by country and organisation. Uses API key with daily limits</div>
         </div>
+
       </div>
 
       <div class="search-container" id="searchContainer"></div>
